@@ -33,17 +33,20 @@
   3. Hot pot in Chinatown
   4. Check for roaches at Lao Szechuan in Chinatown.  But the food is so good
 
+<a href="http://www.wix.com/dctabion/home">Link using HTML in Mark Down</a>
+[using markdown style link](http://www.wix.com/dctabion/home)
+
 
 #### WHO AM I
+
 ```
+#### This header doesn't work in the block
 DANIEL TABION
 GA WDI-CHICAGO student
-All around cool guy
 thisisnotmyemail@gmail.com
-[dood](http://www.wix.com/dctabion/home)
+<a href="http://www.wix.com/dctabion/home">Link doesn't work in the blockusing HTML in Mark Down</a>
+[link doesn't work in the block](http://www.wix.com/dctabion/home)
 ```
-[dood](http://www.wix.com/dctabion/home)
 
-```html
-<a href="http://www.wix.com/dctabion/home">Dood, check this</a>
-```
+<a href="http://www.wix.com/dctabion/home">Link using HTML in Mark Down</a>
+[using markdown style link](http://www.wix.com/dctabion/home)
