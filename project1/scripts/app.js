@@ -5,11 +5,10 @@ $('document').ready(function(){
 
   // Images
   var imgRoach = new Image();
-  imgRoach.class = 'imgRoach';
-
   imgRoach.src = 'assets/roachRight.png';
-  console.log(imgRoach);
 
+  var imgSplat = new Image();
+  imgSplat.src = 'assets/splat.png';
   /////////////// Global Variables /////////////
 
   // get canvas element selector and get context
@@ -21,7 +20,7 @@ $('document').ready(function(){
   var canvasHeight = 500; // from CSS file ...make this adjustable in future?
 
   var roaches = [];
-  var numRoaches = 5;
+  var numRoaches = 100;
   var maxRoachSpeed = 5;
   var minRoachSpeed = 1;
   var startRadius = 25;
@@ -46,9 +45,10 @@ $('document').ready(function(){
       this.yPos = this.yPos + this.yVel;
     };
     this.clear = function() {
-      ctx.clearRect(this.xPosOld, this.yPosOld, 175, 175);
+      ctx.clearRect(this.xPosOld, this.yPosOld, 40, 40);
     }
     this.render = function() {
+//      ctx.fillRect(this.xPos, this.yPos, 40, 40);
       ctx.drawImage(imgRoach, this.xPos, this.yPos);
     };
     this.changeVelocity = function() {
@@ -61,10 +61,35 @@ $('document').ready(function(){
   function player() {
     this.kills = 0;
     this.name = "Dood";
-    this.killRoaches = function() {
-      console.log('kill roaches')
+    this.currentX;
+    this.currentY;
+    this.oldX;
+    this.oldY;
+    this.mouseMove = function(event) {
+      console.log('mouse Move:' + this.currentX + ", " + this.currentY);
+      //ctx.clearRect(this.oldX, this.oldY, 40, 40);
+      this.currentX = event.pageX - canvas.offsetLeft;
+      this.currentY = event.pageY - canvas.offsetTop;
+      // save old position so we can clear it before changing this.x & y
+      this.oldX = this.currentX;
+      this.oldY = this.currentY;
+      console.log(this.currentX + ", " + this.currentY);
+    };
+    this.render = function() {
+      console.log('render:' + this.currentX + ", " + this.currentY);
+    };
+    this.killRoaches = function(event) {
+      console.log('killRoaches: ' + this.currentX + ", " + this.currentY);
+      var xKill = event.pageX - canvas.offsetLeft;
+      var yKill = event.pageY - canvas.offsetTop;
+      console.log('trying to kill roaches');
+      console.log(event.pageX + ", " + event.pageY + "  " +
+        xKill + ', ' + yKill);
+      ctx.drawImage(imgSplat, xKill, yKill );
 
-
+      // check for kills on each roach
+      for (i=0; i<roaches.length; i++) {
+      }
     };
   }
 
@@ -72,7 +97,8 @@ $('document').ready(function(){
 
   // move and draw all the roaches
   function renderGame() {
-    console.log('rendering');
+    console.log('rendering Game');
+
     for (var i=0; i<roaches.length; i++) {
       roaches[i].moveIt();
     }
@@ -82,12 +108,16 @@ $('document').ready(function(){
     for (var i=0; i<roaches.length; i++) {
       roaches[i].render();
     }
+    currentPlayer.render();
   }
 
   /////// MAIN CONTROL CODE ///////////////////
   /////////////////////////////////////////////
 
   ///////// Initialize objects & call construtors //////////
+
+  // Create player
+  var currentPlayer = new player();
 
   // Create the roaches with initial random positions & velcities
   for (var i=0; i<numRoaches; i++) {
@@ -114,14 +144,11 @@ $('document').ready(function(){
     roaches[i] = new roach(x, y, xVel, yVel);
   }
 
-  // Create player
-  var player1 = new player();
 
-  // listen for player attempting to kill roaches with mouse click
-  canvas.addEventListener('click', function(event) {
-    console.log('click');
-  });
-  // ctx.addEventListener('click', player1.killRoaches(event) );
+
+  // listen for player events
+  canvas.addEventListener('click', currentPlayer.killRoaches);
+  canvas.addEventListener('mousemove', currentPlayer.mouseMove);
 
   // listen for ESC to stop the program
   $( "html" ).keydown(function( event ) {
@@ -134,6 +161,6 @@ $('document').ready(function(){
 
   // set game rendering in motion
   timeoutId = window.setInterval(renderGame, 50);
-//  renderGame();
+  //  renderGame();
 
 }); // close $('document').ready()
