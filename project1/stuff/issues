@@ -1,8 +1,28 @@
-mouse position doesn't map to canvas coords?
+-mouse position doesn't map to canvas coords?
 
 
-this didn't refer to what I thought in the object methods for player
- -tried moving outside of window.onload()
+-'this' didn't refer to what I thought in the object methods for player
+  -tried moving outside of window.onload()
    didn't do anything
- -tried adding this.self = this to object.
+  -tried adding this.self = this to object.
   worked
+
+ISSUES
+  -fix flickering of hand/mouse icon
+
+  -fix random start and velocities.
+   sometimes velocity is 0
+   start pos is not centered around center
+
+  -spash screen
+   -ask num players
+
+  -num roaches random?
+   -allow users to select num roaches
+
+  -speed increases as game goes on?
+
+  -change rotation of roach image
+
+  -add sound
+  -add splat
