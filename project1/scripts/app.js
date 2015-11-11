@@ -1,4 +1,4 @@
-///////////// Preload Resources: images & sounds /////////////
+////////////// Preload Resources: images & sounds /////////////
 
 // Images
 var imgRoach = new Image();
