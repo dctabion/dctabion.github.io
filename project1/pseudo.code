@@ -1,0 +1,64 @@
+create array of roaches based on level
+
+
+//Preload shit
+preload resourses
+  load images
+    var img = new Image();   // Create new img element
+    img.src = 'myImage.png'; // Set source path
+  load sounds??
+
+  Get context
+  set background Image
+
+
+// consructors
+roach
+player 1
+player 2
+
+// Helper Functions
+render game
+  loop through all roaches
+    save old position
+    update position
+    erase old position
+    draw roach in new position
+
+    draw arrow/pointer
+
+
+
+// init game
+start level
+    tell user level, score
+    wait for user input to start game
+    create roach array
+
+timer(rendergame) - render periodically
+
+on click
+  for each roach
+    if collision
+      play sound
+      show kill image/animation
+      increase score
+      remove roach from array
+  if no roaches
+    clear render timer to stop animation
+    display win!!
+    increase level
+    wait for user to do something to start next level (alert())
+
+
+
+
+FUTURE SHOCK
+-spash screen
+ -ask num players
+
+-num roaches random?
+ -allow users to select num roaches
+ -make
+
+-speed increases as game goes on?
