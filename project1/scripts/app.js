@@ -62,28 +62,32 @@ function roach(xPos, yPos, xVel, yVel) {
 function player() {
   this.kills = 0;
   this.name = "Dood";
-  this.currentX;
-  this.currentY;
-  this.oldX;
-  this.oldY;
-  this.self = this;
+  this.xPos;
+  this.yPos;
+  this.xPosOld;
+  this.yPosOld;
 
   this.mouseMove = function(event) {
-    console.log('mouse Move:' + self + self.currentX + ", " + self.currentY);
-    ctx.clearRect(self.oldX, self.oldY, 40, 40);
-    self.currentX = event.pageX - canvas.offsetLeft;
-    self.currentY = event.pageY - canvas.offsetTop;
+    console.log('mouse Move:' + this + this.xPos + ", " + this.yPos);
+
+    // clear hand at old postion
+    ctx.clearRect(this.xPosOld, this.yPosOld, 40, 40);
+
+    // store current position of mouse
+    this.xPos = event.pageX - canvas.offsetLeft;
+    this.yPos = event.pageY - canvas.offsetTop;
+
     // save old position so we can clear it before changing this.x & y
-    self.oldX = self.currentX;
-    self.oldY = self.currentY;
-    console.log(self.currentX + ", " + self.currentY);
+    this.xPosOld = this.xPos;
+    this.yPosOld = this.yPos;
   };
   this.render = function() {
-    console.log('render:' + self + self.currentX + ", " + self.currentY);
-    ctx.drawImage(imgHand, self.currentX, self.currentY );
+    console.log('render:' + this + this.xPos + ", " + this.yPos);
+    ctx.drawImage(imgHand, this.xPos, this.yPos );
   };
+
   this.killRoaches = function(event) {
-    console.log('killRoaches: ' + self + self.currentX + ", " + self.currentY);
+    console.log('killRoaches: ' + this + this.xPos + ", " + this.yPos);
     var xKill = event.pageX - canvas.offsetLeft;
     var yKill = event.pageY - canvas.offsetTop;
     console.log('trying to kill roaches');
@@ -157,8 +161,17 @@ $('document').ready(function(){
   /////////////////////////////////////////////
 
   // listen for player events
-  canvas.addEventListener('click', currentPlayer.killRoaches);
-  canvas.addEventListener('mousemove', currentPlayer.mouseMove);
+  canvas.onclick = function(event) {
+    console.log('--click-- currentPlayer:' + currentPlayer.xPos + ', ' + currentPlayer.yPos);
+    currentPlayer.killRoaches(event);
+  }
+  canvas.onmousemove = function(event) {
+    console.log('--mouseMove-- currentPlayer:' + currentPlayer.xPos + ', ' + currentPlayer.yPos);
+    currentPlayer.mouseMove(event);
+  }
+
+  // canvas.addEventListener('click', currentPlayer.killRoaches);
+  // canvas.addEventListener('mousemove', currentPlayer.mouseMove);
 
   // listen for ESC to stop the program
   $( "html" ).keydown(function( event ) {
