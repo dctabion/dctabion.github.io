@@ -1,18 +1,3 @@
-///////////// Preload Resources: images & sounds /////////////
-
-// Images
-var imgRoach = new Image();
-imgRoach.src = 'assets/roachRight.png';
-
-var imgSplat = new Image();
-imgSplat.src = 'assets/splat.png';
-
-var imgHand = new Image();
-imgHand.src = 'assets/hand.png';
-
-/////////////// Global Variables /////////////
-
-// get canvas element selector and get context
 var canvas;
 var ctx;
 
@@ -62,28 +47,25 @@ function roach(xPos, yPos, xVel, yVel) {
 function player() {
   this.kills = 0;
   this.name = "Dood";
-  this.currentX;
-  this.currentY;
+  this.currentX = 5;
+  this.currentY = 5;
   this.oldX;
   this.oldY;
-  this.self = this;
-
   this.mouseMove = function(event) {
-    console.log('mouse Move:' + self + self.currentX + ", " + self.currentY);
-    ctx.clearRect(self.oldX, self.oldY, 40, 40);
-    self.currentX = event.pageX - canvas.offsetLeft;
-    self.currentY = event.pageY - canvas.offsetTop;
+    console.log('mouse Move:' + this.currentX + ", " + this.currentY);
+    //ctx.clearRect(this.oldX, this.oldY, 40, 40);
+    this.currentX = event.pageX - canvas.offsetLeft;
+    this.currentY = event.pageY - canvas.offsetTop;
     // save old position so we can clear it before changing this.x & y
-    self.oldX = self.currentX;
-    self.oldY = self.currentY;
-    console.log(self.currentX + ", " + self.currentY);
+    this.oldX = this.currentX;
+    this.oldY = this.currentY;
+    console.log(this.currentX + ", " + this.currentY);
   };
   this.render = function() {
-    console.log('render:' + self + self.currentX + ", " + self.currentY);
-    ctx.drawImage(imgHand, self.currentX, self.currentY );
+    console.log('render:' + this.currentX + ", " + this.currentY);
   };
   this.killRoaches = function(event) {
-    console.log('killRoaches: ' + self + self.currentX + ", " + self.currentY);
+    console.log('killRoaches: ' + this.currentX + ", " + this.currentY);
     var xKill = event.pageX - canvas.offsetLeft;
     var yKill = event.pageY - canvas.offsetTop;
     console.log('trying to kill roaches');
@@ -101,7 +83,7 @@ function player() {
 
 // move and draw all the roaches
 function renderGame() {
-  // console.log('rendering Game');
+  console.log('rendering Game');
 
   for (var i=0; i<roaches.length; i++) {
     roaches[i].moveIt();
@@ -145,14 +127,12 @@ for (var i=0; i<numRoaches; i++) {
   roaches[i] = new roach(x, y, xVel, yVel);
 }
 
-////////////////////// window.onload //////////////////////////
-
 $('document').ready(function(){
   console.log('window loaded');
-
+  // get canvas element selector and get context
   canvas = document.getElementById('gameCanvas');
-  // canvas = document.getElementById('gameCanvas').style.cursor = "none";
   ctx = canvas.getContext('2d');
+
   /////// MAIN CONTROL CODE ///////////////////
   /////////////////////////////////////////////
 

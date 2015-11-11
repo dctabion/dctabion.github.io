@@ -1,0 +1,8 @@
+mouse position doesn't map to canvas coords?
+
+
+this didn't refer to what I thought in the object methods for player
+ -tried moving outside of window.onload()
+   didn't do anything
+ -tried adding this.self = this to object.
+  worked
