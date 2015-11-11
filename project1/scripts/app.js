@@ -1,4 +1,4 @@
-///////////// Preload Resources: images & sounds /////////////
+////////////// Preload Resources: images & sounds /////////////
 
 // Images
 var imgRoach = new Image();
@@ -18,7 +18,7 @@ var ctx;
 
 // some gobals
 var canvasWidth = 600; // from CSS file ...make this adjustable in future?
-var canvasHeight = 500; // from CSS file ...make this adjustable in future?
+var canvasHeight = 400; // from CSS file ...make this adjustable in future?
 
 var roaches = [];
 var numRoaches = 5;
@@ -62,28 +62,32 @@ function roach(xPos, yPos, xVel, yVel) {
 function player() {
   this.kills = 0;
   this.name = "Dood";
-  this.currentX;
-  this.currentY;
-  this.oldX;
-  this.oldY;
-  this.self = this;
+  this.xPos;
+  this.yPos;
+  this.xPosOld;
+  this.yPosOld;
 
   this.mouseMove = function(event) {
-    console.log('mouse Move:' + self + self.currentX + ", " + self.currentY);
-    ctx.clearRect(self.oldX, self.oldY, 40, 40);
-    self.currentX = event.pageX - canvas.offsetLeft;
-    self.currentY = event.pageY - canvas.offsetTop;
+    console.log('mouse Move:' + this + this.xPos + ", " + this.yPos);
+
+    // clear hand at old postion
+    ctx.clearRect(this.xPosOld, this.yPosOld, 40, 40);
+
+    // store current position of mouse
+    this.xPos = event.pageX - canvas.offsetLeft;
+    this.yPos = event.pageY - canvas.offsetTop;
+
     // save old position so we can clear it before changing this.x & y
-    self.oldX = self.currentX;
-    self.oldY = self.currentY;
-    console.log(self.currentX + ", " + self.currentY);
+    this.xPosOld = this.xPos;
+    this.yPosOld = this.yPos;
   };
   this.render = function() {
-    console.log('render:' + self + self.currentX + ", " + self.currentY);
-    ctx.drawImage(imgHand, self.currentX, self.currentY );
+    console.log('render:' + this + this.xPos + ", " + this.yPos);
+    ctx.drawImage(imgHand, this.xPos, this.yPos );
   };
+
   this.killRoaches = function(event) {
-    console.log('killRoaches: ' + self + self.currentX + ", " + self.currentY);
+    console.log('killRoaches: ' + this + this.xPos + ", " + this.yPos);
     var xKill = event.pageX - canvas.offsetLeft;
     var yKill = event.pageY - canvas.offsetTop;
     console.log('trying to kill roaches');
@@ -126,11 +130,11 @@ for (var i=0; i<numRoaches; i++) {
   // choose random position within 50px of center
   var x = Math.floor(
     Math.random() * (  ((canvasWidth/2 + startRadius)+1) - (canvasWidth/2 - startRadius)  )
-    + (canvasWidth/2 - startRadius)
+    + (canvasWidth/2 - startRadius - imgRoach.width/2)
   );
   var y = Math.floor(
     Math.random() * (  ((canvasHeight/2 + startRadius)+1) - (canvasHeight/2 - startRadius)  )
-    + (canvasHeight/2 - startRadius)
+    + (canvasHeight/2 - startRadius - imgRoach.height/2)
   );
 
   // choose random velocity from +/-maxRoachSpeed
@@ -157,8 +161,20 @@ $('document').ready(function(){
   /////////////////////////////////////////////
 
   // listen for player events
+  /* event handling doesn't work this way because 'this' in currentPlayer.killRoaches will refer to the canvas (the calling object) and the instance of my object 'currentPlayer'.
   canvas.addEventListener('click', currentPlayer.killRoaches);
   canvas.addEventListener('mousemove', currentPlayer.mouseMove);
+  */
+
+  canvas.onclick = function(event) {
+    console.log('--click-- currentPlayer:' + currentPlayer.xPos + ', ' + currentPlayer.yPos);
+    currentPlayer.killRoaches(event);
+  }
+  canvas.onmousemove = function(event) {
+    console.log('--mouseMove-- currentPlayer:' + currentPlayer.xPos + ', ' + currentPlayer.yPos);
+    currentPlayer.mouseMove(event);
+  }
+
 
   // listen for ESC to stop the program
   $( "html" ).keydown(function( event ) {
@@ -171,6 +187,6 @@ $('document').ready(function(){
 
   // set game rendering in motion
   timeoutId = window.setInterval(renderGame, 50);
-  //  renderGame();
+  // renderGame();
 
 }); // close $('document').ready()
