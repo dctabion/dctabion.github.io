@@ -161,6 +161,11 @@ $('document').ready(function(){
   /////////////////////////////////////////////
 
   // listen for player events
+  /* event handling doesn't work this way because 'this' in currentPlayer.killRoaches will refer to the canvas (the calling object) and the instance of my object 'currentPlayer'.
+  canvas.addEventListener('click', currentPlayer.killRoaches);
+  canvas.addEventListener('mousemove', currentPlayer.mouseMove);
+  */
+  
   canvas.onclick = function(event) {
     console.log('--click-- currentPlayer:' + currentPlayer.xPos + ', ' + currentPlayer.yPos);
     currentPlayer.killRoaches(event);
@@ -170,8 +175,6 @@ $('document').ready(function(){
     currentPlayer.mouseMove(event);
   }
 
-  // canvas.addEventListener('click', currentPlayer.killRoaches);
-  // canvas.addEventListener('mousemove', currentPlayer.mouseMove);
 
   // listen for ESC to stop the program
   $( "html" ).keydown(function( event ) {
