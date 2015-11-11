@@ -18,7 +18,7 @@ var ctx;
 
 // some gobals
 var canvasWidth = 600; // from CSS file ...make this adjustable in future?
-var canvasHeight = 400; // from CSS file ...make this adjustable in future?
+var canvasHeight = 500; // from CSS file ...make this adjustable in future?
 
 var roaches = [];
 var numRoaches = 5;
@@ -130,11 +130,11 @@ for (var i=0; i<numRoaches; i++) {
   // choose random position within 50px of center
   var x = Math.floor(
     Math.random() * (  ((canvasWidth/2 + startRadius)+1) - (canvasWidth/2 - startRadius)  )
-    + (canvasWidth/2 - startRadius - imgRoach.width/2)
+    + (canvasWidth/2 - startRadius)
   );
   var y = Math.floor(
     Math.random() * (  ((canvasHeight/2 + startRadius)+1) - (canvasHeight/2 - startRadius)  )
-    + (canvasHeight/2 - startRadius - imgRoach.height/2)
+    + (canvasHeight/2 - startRadius)
   );
 
   // choose random velocity from +/-maxRoachSpeed
@@ -166,27 +166,19 @@ $('document').ready(function(){
   canvas.addEventListener('mousemove', currentPlayer.mouseMove);
   */
 
-  canvas.onclick = function(event) {
-    console.log('--click-- currentPlayer:' + currentPlayer.xPos + ', ' + currentPlayer.yPos);
-    currentPlayer.killRoaches(event);
+  ctx.drawImage(imgRoach, 280, 230);
+
+  ctx.beginPath();
+  ctx.moveTo(280, 0);
+  var i=250;
+  function drawTheLine() {
+    console.log('about to draw to 280, ' + i);
+    ctx.lineTo(280,i);
+    ctx.stroke();
+    i = i + 5;
   }
-  canvas.onmousemove = function(event) {
-    console.log('--mouseMove-- currentPlayer:' + currentPlayer.xPos + ', ' + currentPlayer.yPos);
-    currentPlayer.mouseMove(event);
-  }
 
+  timeoutId = window.setInterval(drawTheLine, 1000);
 
-  // listen for ESC to stop the program
-  $( "html" ).keydown(function( event ) {
-    // ESC - stop the roach!
-    if (event.keyCode == 27) {
-      clearInterval(timeoutId);
-    }
-    console.log('event.keyCode: ' + event.keyCode);
-  });
-
-  // set game rendering in motion
-  timeoutId = window.setInterval(renderGame, 50);
-  // renderGame();
 
 }); // close $('document').ready()

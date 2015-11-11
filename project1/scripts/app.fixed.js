@@ -18,7 +18,7 @@ var ctx;
 
 // some gobals
 var canvasWidth = 600; // from CSS file ...make this adjustable in future?
-var canvasHeight = 400; // from CSS file ...make this adjustable in future?
+var canvasHeight = 500; // from CSS file ...make this adjustable in future?
 
 var roaches = [];
 var numRoaches = 5;
@@ -130,11 +130,11 @@ for (var i=0; i<numRoaches; i++) {
   // choose random position within 50px of center
   var x = Math.floor(
     Math.random() * (  ((canvasWidth/2 + startRadius)+1) - (canvasWidth/2 - startRadius)  )
-    + (canvasWidth/2 - startRadius - imgRoach.width/2)
+    + (canvasWidth/2 - startRadius)
   );
   var y = Math.floor(
     Math.random() * (  ((canvasHeight/2 + startRadius)+1) - (canvasHeight/2 - startRadius)  )
-    + (canvasHeight/2 - startRadius - imgRoach.height/2)
+    + (canvasHeight/2 - startRadius)
   );
 
   // choose random velocity from +/-maxRoachSpeed
@@ -187,6 +187,6 @@ $('document').ready(function(){
 
   // set game rendering in motion
   timeoutId = window.setInterval(renderGame, 50);
-  // renderGame();
+  //  renderGame();
 
 }); // close $('document').ready()
