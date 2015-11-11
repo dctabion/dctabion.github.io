@@ -51,9 +51,12 @@ on click
     wait for user to do something to start next level (alert())
 
 
-
-
 FUTURE SHOCK
+ISSUES & FUTURE FEATURES
+-fix random start and velocities.
+ sometimes velocity is 0
+ start pos is not centered around center
+
 -spash screen
  -ask num players
 
@@ -62,3 +65,8 @@ FUTURE SHOCK
  -make
 
 -speed increases as game goes on?
+
+-change rotation of roach image
+
+-add sound
+-add splat
