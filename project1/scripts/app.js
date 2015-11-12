@@ -30,6 +30,7 @@ var canvasHeight = 400; // from CSS file ...make this adjustable in future?
 var timeoutId;
 
 // Game control globals
+var splats = [];
 var roaches = [];
 var thePlayers = [];
 var currentPlayerIndex = 0;
@@ -92,7 +93,8 @@ var player = function(index) {
     console.log('mouse Move:' + this + this.xPos + ", " + this.yPos);
 
     // clear hand at old postion
-    ctx.clearRect(this.xPosOld, this.yPosOld, 40, 40);
+    this.clearPlayer();
+    // ctx.clearRect(this.xPosOld, this.yPosOld, 40, 40);
 
     // store current position of mouse
     this.xPos = event.pageX - canvas.offsetLeft;
@@ -106,7 +108,9 @@ var player = function(index) {
     console.log('render:' + this + this.xPos + ", " + this.yPos);
     ctx.drawImage(imgHand, this.xPos, this.yPos );
   };
-
+  this.clearPlayer = function() {
+    ctx.clearRect(this.xPosOld, this.yPosOld, 40, 40);
+  }
   this.killRoaches = function(event) {
     console.log('killRoaches: ' + this + this.xPos + ", " + this.yPos);
     var xKill = event.pageX - canvas.offsetLeft;
@@ -281,6 +285,9 @@ function endTurn() {
   console.log('All roaches dead or escaped!');
   alert(thePlayers[currentPlayerIndex].name + ' killed ' + currentPlayer.currentKills + ' roaches this round!');
   clearTimeout(timeoutId);
+  // clear canvas
+  ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
   // *** is it valid to remove event handlers this way?
   canvas.onclick = null;
   canvas.onmousemove = null;
