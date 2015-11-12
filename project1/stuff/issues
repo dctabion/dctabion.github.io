@@ -1,16 +1,22 @@
 FEATURES NEED FOR MVP:
 -Design Layout
+-watch UI component video
+-decide on UI components
 -Initialize game/players
+-run multiple rounds of game
+
 -UI components
 -game controlling component
 
 
 OPEN ISSUES FOR MVP:
--kills conditions not correct.  it kills more than one roach.
-  -might be that the removal from array not working.
-   because score only inc by 1 so that is good
 
-OPEN ISSUES LOW PRIORITY:
+
+
+
+
+OPEN ISSUES EXTRAS: LOW PRIORITY:
+-choose fonts
 -tighten up kill conditions based on programmer defined variable(s)
 -fix random start and velocities.
    sometimes velocity is 0
@@ -18,18 +24,13 @@ OPEN ISSUES LOW PRIORITY:
 -fix flickering of hand/mouse icon
 
 
-
-
-
-
-
-
-
-
-
 FEATURES: FUTURE
+-allow users to select number of rounds
+-num roaches and speed can change
+-allow users to select number of players
 -add sound
--add splat objects that clear themselves after an interval of time
+-add splat objects that clear themselves after an interval of time and show
+ dead roach
 -num roaches random?
  -allow users to select num roaches
 -select different game type...
@@ -53,5 +54,10 @@ ISSUES: RESOLVED
 
 -start pos is not centered around center
  fixed.
+
+-kills conditions not correct.  it kills more than one roach.
+   -might be that the removal from array not working.
+    because score only inc by 1 so that is good
+   -FIX: was removing more than 1 element from array
 
 FEATURES: IMPLEMENTED

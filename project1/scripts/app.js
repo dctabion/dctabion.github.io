@@ -10,6 +10,9 @@ imgSplat.src = 'assets/splat.png';
 var imgHand = new Image();
 imgHand.src = 'assets/hand.png';
 
+var imgBackground = new Image();
+imgBackground.src = 'assets/woodGrain.png';
+
 /////////////// Global Variables /////////////
 
 // get canvas element selector and get context
@@ -137,6 +140,9 @@ function renderGame() {
 }
 
 ///////// Initialize objects & call construtors //////////
+
+// Set background image of canvass
+ctx.drawImage(imgBackground, 0, 0);
 
 // Create player
 var currentPlayer = new player();
