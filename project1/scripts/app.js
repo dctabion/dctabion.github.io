@@ -30,7 +30,7 @@ var canvasHeight = 400; // from CSS file ...make this adjustable in future?
 var timeoutId;
 
 // Game control globals
-var splats = [];
+var theSplats = [];
 var roaches = [];
 var thePlayers = [];
 var currentPlayerIndex = 0;
@@ -39,7 +39,19 @@ var currentPlayer;
 
 //////////////// Constructors ////////////////
 
-// Make new roach
+// Spat constructor
+var splat = function (xPos, yPos) {
+  this.xPos = xPos;
+  this.yPos = yPos;
+  this.eraseSplat = function() {
+    ctx.clearRect(this.xPosOld, this.yPosOld, imgSplat.width, imgSplat.height);
+  };
+  this.renderSplat = function() {
+    ctx.drawImage(imgSplat, this.xPos, this.yPos);
+  };
+}
+
+// Roach constructor
 var roach = function (xPos, yPos, xVel, yVel) {
   this.xPos = xPos;
   this.yPos = yPos;
@@ -55,7 +67,7 @@ var roach = function (xPos, yPos, xVel, yVel) {
     this.yPos = this.yPos + this.yVel;
   };
   this.eraseRoach = function() {
-    ctx.clearRect(this.xPosOld, this.yPosOld, 40, 40);
+    ctx.clearRect(this.xPosOld, this.yPosOld, imgRoach.width, imgRoach.height);
   }
   this.render = function() {
 //      ctx.fillRect(this.xPos, this.yPos, 40, 40);
@@ -133,7 +145,13 @@ var player = function(index) {
           // clear roach from canvass draw splat and remove roach from array
           console.log('KILLED A ROACH!  There were ' + roaches.length + ' roaches.');
           roaches[i].eraseRoach();
-          ctx.drawImage(imgSplat, roaches[i].xPos, roaches[i].yPos);
+
+          // draw a splat
+          // ctx.drawImage(imgSplat, roaches[i].xPos, roaches[i].yPos);
+          // add a splat object
+          var theSplat = new splat(roaches[i].xPos, roaches[i].yPos);
+          theSplats.push(theSplat);
+
           roaches.splice(i, 1);
           console.log('Now there are ' + roaches.length + ' roaches.');
           // stop rendering if all roaches dead
@@ -151,7 +169,9 @@ function renderGame() {
   // console.log('rendering Game');
 
   // Draw the splats (future feature)
-
+  for (var i=0; i<theSplats.length; i++) {
+    theSplats[i].renderSplat();
+  }
   // change roach position and remove from array if escapes (out of bounds)
   for (var i=0; i<roaches.length; i++) {
     roaches[i].moveIt();
@@ -184,6 +204,9 @@ function doPlayerTurn() {
     //numRoaches = parseInt( Math.random() * 6 + 1 );
     //numRoaches = numRoaches + 2;
     // *** TEST CODE ABOVE REMOVE THIS TEST CODE *** //
+
+    // clear splats
+    theSplats = [];
 
     for (var i=0; i<numRoaches; i++) {
       console.log('creating Roach ' + i);
