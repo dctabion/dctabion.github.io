@@ -83,7 +83,9 @@ OPEN ISSUES EXTRAS: LOW PRIORITY:
    sometimes velocity is 0
 
 -fix flickering of hand/mouse icon
-
+-change currentPlayer to thePlayers[i]
+-test round scoring feature
+ -make more elegant
 
 FEATURES: FUTURE
 -allow users to select number of rounds

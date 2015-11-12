@@ -67,8 +67,8 @@ var roach = function (xPos, yPos, xVel, yVel) {
 }
 
 // Make new player
-var player = function() {
-  this.name = "Dood";
+var player = function(index) {
+  this.name = "Dood" + index; // for now players will be called "Dood 1", "Dood 2", etc
   this.currentKills = 0;
   this.totalKills = 0; // current kills on this level
   this.levelsWon = 0;
@@ -217,6 +217,38 @@ function doPlayerTurn() {
 
   else {
     // check who won and display here
+    var winningScore = -1;
+    var tie = false;
+    var theString = "";
+
+    // check for Winning score or tie
+    for (var i=0; i < thePlayers.length; i++) {
+      if ( thePlayers[i].currentKills > winningScore ) {
+        winningScore = thePlayers[i].currentKills;
+        tie = false;
+      }
+      else if ( thePlayers[i].currentKills == winningScore ) {
+        tie = true;
+      }
+    }
+
+    if (tie) {
+      for (var i=0; i < thePlayers.length; i++) {
+        if ( thePlayers[i].currentKills == winningScore ) {
+          theString = theString + thePlayers[i].name + " "
+        }
+      }
+      theString = theString + " tied.";
+    }
+    else {
+      // this unecessarily loops though all players.  maybe an better solution
+      for (var i=0; i < thePlayers.length; i++) {
+        if ( thePlayers[i].currentKills == winningScore) {
+          theString = theString + thePlayers[i].name + " wins!!!";
+        }
+      }
+    }
+    alert(theString);
     alert('Game over doods!');
   }
 } // close doPlayerTurn()
@@ -230,7 +262,7 @@ function doPlayerTurn() {
 // Create players (aka da playaz)
 for (var i=0; i<numPlayers; i++) {
   console.log('Creating player: ' + i);
-  thePlayers[i] = new player();
+  thePlayers[i] = new player(i);
 }
 // set to player1's turn
 currentPlayer = thePlayers[0];
