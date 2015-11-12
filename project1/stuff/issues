@@ -1,9 +1,6 @@
-QUESTIONS
--choices of what to prioritize
--design consultation
- -can I call some function of an object from the object methods?
-
-
+TODO
+design UI
+find jQuery or CSS tricks for display
 
 FEATURES NEED FOR MVP:
 -Design Layout
@@ -99,6 +96,7 @@ FEATURES: FUTURE
 -select different game type...
 -speed increases as game goes on?
 -change rotation of roach image
+-JASON says add new waves of roaches
 
 
 
