@@ -10,9 +10,8 @@ imgSplat.src = 'assets/splat.png';
 var imgHand = new Image();
 imgHand.src = 'assets/hand.png';
 
-// var imgBackground = new Image();
-// imgBackground.src = 'assets/splat.png';
-// // imgBackground.src = 'assets/woodGrain.png';
+var imgBackground = new Image();
+imgBackground.src = 'assets/splat.png';
 
 /////////////// Global Variables /////////////
 
@@ -23,13 +22,13 @@ var ctx;
 // some gobals
 var canvasWidth = 600; // from CSS file ...make this adjustable in future?
 var canvasHeight = 400; // from CSS file ...make this adjustable in future?
-/*
+
 var roaches = [];
 var numRoaches = 5;
 var maxRoachSpeed = 5;
 var minRoachSpeed = 1;
 var startRadius = 25;
-*/
+
 
 var timeoutId;
 
@@ -99,7 +98,6 @@ function player() {
     console.log('trying to kill roaches');
     console.log(event.pageX + ", " + event.pageY + "  " +
       xKill + ', ' + yKill);
-    // ctx.drawImage(imgSplat, xKill, yKill);
 
     // check for kills on each roach
     for (i=0; i<roaches.length; i++) {
@@ -142,9 +140,6 @@ function renderGame() {
 
 ///////// Initialize objects & call construtors //////////
 
-// Set background image of canvass
-ctx.drawImage(imgBackground, 0, 0);
-
 // Create player
 var currentPlayer = new player();
 
@@ -181,6 +176,7 @@ $('document').ready(function(){
   canvas = document.getElementById('gameCanvas');
   // canvas = document.getElementById('gameCanvas').style.cursor = "none";
   ctx = canvas.getContext('2d');
+
   /////// MAIN CONTROL CODE ///////////////////
   /////////////////////////////////////////////
 
