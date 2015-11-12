@@ -16,8 +16,8 @@ imgBackground.src = 'assets/splat.png';
 /////////////// Global Variables /////////////
 
 // programmer defined variables to adjust game parameters
-var numRoaches = 5;
-var maxRoachSpeed = 10;
+var numRoaches = 100;
+var maxRoachSpeed = 15;
 var minRoachSpeed = 1;
 var startRadius = 25;
 var numPlayers = 3;
