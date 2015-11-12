@@ -108,14 +108,12 @@ function player() {
           // Killed a roach! Increase score
           this.kills = this.kills + 1;
 
-          // clear roach from canvass and remove roach from array
+          // clear roach from canvass draw splat and remove roach from array
           console.log('KILLED A ROACH!  There were ' + roaches.length + ' roaches.');
           roaches[i].clear();
-          roaches.splice(i);
+          ctx.drawImage(imgSplat, roaches[i].xPos, roaches[i].yPos);
+          roaches.splice(i, 1);
           console.log('Now there are ' + roaches.length + ' roaches.');
-
-          // Draw Splat
-          ctx.drawImage(imgSplat, xKill, yKill);
         }
       }
   };
