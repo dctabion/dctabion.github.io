@@ -1,28 +1,55 @@
--mouse position doesn't map to canvas coords?
+FEATURES NEED FOR MVP:
+-Design Layout
+-Initialize game/players
+-UI components
+-game controlling component
 
+
+OPEN ISSUES FOR MVP:
+-kills conditions not correct.  it kills more than one roach.
+  -might be that the removal from array not working.
+   because score only inc by 1 so that is good
+OPEN ISSUES LOW PRIORITY:
+-fix random start and velocities.
+   sometimes velocity is 0
+
+-fix flickering of hand/mouse icon
+
+
+
+
+
+
+
+
+
+
+
+FEATURES: FUTURE
+-add sound
+-add splat objects that clear themselves after an interval of time
+-num roaches random?
+ -allow users to select num roaches
+-select different game type...
+-speed increases as game goes on?
+-change rotation of roach image
+
+
+
+//////////////////////////////////////////
+ISSUES: RESOLVED
+-mouse position doesn't map to canvas coords?
+  canvas html height & width was one thing.  css said another
 
 -'this' didn't refer to what I thought in the object methods for player
-  -tried moving outside of window.onload()
-   didn't do anything
-  -tried adding this.self = this to object.
-  worked
+    -tried moving outside of window.onload()
+     didn't do anything
+    -tried adding this.self = this to object.
+    worked
+    -SOLUTION: it refered to calling object which was canvas() (for mouse move, click, but not render)
+     change handling
 
-ISSUES
-  -fix flickering of hand/mouse icon
+-start pos is not centered around center
+ fixed.
 
-  -fix random start and velocities.
-   sometimes velocity is 0
-   start pos is not centered around center
-
-  -spash screen
-   -ask num players
-
-  -num roaches random?
-   -allow users to select num roaches
-
-  -speed increases as game goes on?
-
-  -change rotation of roach image
-
-  -add sound
-  -add splat
+FEATURES: IMPLEMENTED
