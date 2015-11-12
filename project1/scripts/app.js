@@ -10,8 +10,9 @@ imgSplat.src = 'assets/splat.png';
 var imgHand = new Image();
 imgHand.src = 'assets/hand.png';
 
-var imgBackground = new Image();
-imgBackground.src = 'assets/woodGrain.png';
+// var imgBackground = new Image();
+// imgBackground.src = 'assets/splat.png';
+// // imgBackground.src = 'assets/woodGrain.png';
 
 /////////////// Global Variables /////////////
 
@@ -22,13 +23,13 @@ var ctx;
 // some gobals
 var canvasWidth = 600; // from CSS file ...make this adjustable in future?
 var canvasHeight = 400; // from CSS file ...make this adjustable in future?
-
+/*
 var roaches = [];
 var numRoaches = 5;
 var maxRoachSpeed = 5;
 var minRoachSpeed = 1;
 var startRadius = 25;
-
+*/
 
 var timeoutId;
 
