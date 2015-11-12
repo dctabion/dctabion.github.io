@@ -17,7 +17,7 @@ imgBackground.src = 'assets/splat.png';
 
 // programmer defined variables to adjust game parameters
 var numRoaches = 5;
-var maxRoachSpeed = 5;
+var maxRoachSpeed = 8;
 var minRoachSpeed = 1;
 var startRadius = 25;
 var numPlayers = 3;
@@ -53,7 +53,7 @@ var roach = function (xPos, yPos, xVel, yVel) {
     this.yPosOld = this.yPos;
     this.yPos = this.yPos + this.yVel;
   };
-  this.clear = function() {
+  this.eraseRoach = function() {
     ctx.clearRect(this.xPosOld, this.yPosOld, 40, 40);
   }
   this.render = function() {
@@ -63,7 +63,18 @@ var roach = function (xPos, yPos, xVel, yVel) {
   this.changeVelocity = function() {
     // Future feature in new version
     // make roaches respond to mouse proximity
+  };
+  this.inboudsQuery = function() {
+    if (  ( this.xPos > canvasWidth ) ||
+          ( this.xPos < (0 - imgRoach.width)) ||
+          ( this.yPos > canvasHeight ) ||
+          ( this.yPos < (0 - imgRoach.height))  ) {
+      return false;
     }
+    else {
+      return true;
+    }
+  };
 }
 
 // Make new player
@@ -117,22 +128,13 @@ var player = function(index) {
 
           // clear roach from canvass draw splat and remove roach from array
           console.log('KILLED A ROACH!  There were ' + roaches.length + ' roaches.');
-          roaches[i].clear();
+          roaches[i].eraseRoach();
           ctx.drawImage(imgSplat, roaches[i].xPos, roaches[i].yPos);
           roaches.splice(i, 1);
           console.log('Now there are ' + roaches.length + ' roaches.');
           // stop rendering if all roaches dead
           if (roaches.length == 0 ) {
-            console.log('All roaches dead!');
-            alert(thePlayers[currentPlayerIndex].name + ' killed ' + currentPlayer.currentKills + ' roaches this round!');
-            clearTimeout(timeoutId);
-            // *** is it valid to remove event handlers this way?
-            canvas.onclick = null;
-            canvas.onmousemove = null;
-            currentPlayer.totalKills = currentPlayer.totalKills + currentPlayer.currentKills;
-            currentPlayerIndex++;
-            currentPlayer = thePlayers[currentPlayerIndex];
-            doPlayerTurn();
+            endTurn();
           }
         } // close met kill conditions
       } // close for loop to check all roaches
@@ -141,19 +143,32 @@ var player = function(index) {
 
 ////////////////  Helper Functions /////////////////
 
-// move and draw all the roaches
 function renderGame() {
   // console.log('rendering Game');
 
+  // Draw the splats (future feature)
+
+  // change roach position and remove from array if escapes (out of bounds)
   for (var i=0; i<roaches.length; i++) {
     roaches[i].moveIt();
+    roaches[i].eraseRoach();
+    var inbounds = roaches[i].inboudsQuery()
+    if (inbounds==false) {
+      roaches.splice(i, 1);
+    }
   }
-  for (var i=0; i<roaches.length; i++) {
-    roaches[i].clear();
+
+  // end the turn if no more roaches
+  if (roaches.length == 0) {
+    endTurn();
   }
+
+  // Draw the roaches
   for (var i=0; i<roaches.length; i++) {
     roaches[i].render();
   }
+
+  // Draw the player
   currentPlayer.render();
 }
 
@@ -259,6 +274,18 @@ function doPlayerTurn() {
   }
 } // close doPlayerTurn()
 
+function endTurn() {
+  console.log('All roaches dead or escaped!');
+  alert(thePlayers[currentPlayerIndex].name + ' killed ' + currentPlayer.currentKills + ' roaches this round!');
+  clearTimeout(timeoutId);
+  // *** is it valid to remove event handlers this way?
+  canvas.onclick = null;
+  canvas.onmousemove = null;
+  currentPlayer.totalKills = currentPlayer.totalKills + currentPlayer.currentKills;
+  currentPlayerIndex++;
+  currentPlayer = thePlayers[currentPlayerIndex];
+  doPlayerTurn();
+}
 
 ////////////////////////////////////////////////////////////
 ////////////////// START DOING STUFF HERE! /////////////////
