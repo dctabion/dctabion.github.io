@@ -1,9 +1,66 @@
+QUESTIONS
+-choices of what to prioritize
+-design consultation
+ -can I call some function of an object from the object methods?
+
+
+
 FEATURES NEED FOR MVP:
 -Design Layout
 -watch UI component video
 -decide on UI components
--Initialize game/players
--run multiple rounds of game
+
+-Initialize game/players array
+  -Loop through num players times
+  -set values
+    -set currentPlayerIndex = 0;
+
+
+KICK OF DIFFERENT TASKS
+-call do player turn()
+  if currentPlayerIndex < players.length
+   -create roaches
+   -start listeners
+      -listen for mouseMove
+        -save old position
+        -get old position
+
+      -listen for click
+        -on click
+           -loop through all roaches
+             -see if there is a kill
+               -remove roach
+               -draw splat
+                 -increase kills
+                 -if no roaches left / level over
+                    <LEVEL OVER CODE!> call level over ***
+                      call the clear stuff and prep for new person function
+                        -clear render timer
+                        -stop listening to mousMove
+                        -stop listening to click
+                        -display score of player
+                        -increase player index so next players' turn
+                      call the do player function to kick off again
+
+   -start rendering periodically
+      -erase the roaches
+      -erase the hand
+      -draw the stuff in order of lowest layer to highest layer
+        -loop through & draw the splats
+        -loop through roaches
+          save old position
+          move roach
+          if roach escapes
+            remove from array
+            if all roaches escaped
+              <LEVEL OVER CODE!> call level over
+                 ...see above at ****
+          else
+            draw the roach
+          -draw the hand
+  else (no players left)
+  display who won!!!
+
 
 -UI components
 -game controlling component

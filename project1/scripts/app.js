@@ -15,22 +15,26 @@ imgBackground.src = 'assets/splat.png';
 
 /////////////// Global Variables /////////////
 
-// get canvas element selector and get context
-var canvas;
-var ctx;
-
-// some gobals
-var canvasWidth = 600; // from CSS file ...make this adjustable in future?
-var canvasHeight = 400; // from CSS file ...make this adjustable in future?
-
-var roaches = [];
+// programmer defined variables to adjust game parameters
 var numRoaches = 5;
 var maxRoachSpeed = 5;
 var minRoachSpeed = 1;
 var startRadius = 25;
+var numPlayers = 2;
 
-
+// UI related globals
+var canvas;
+var ctx;
+var canvasWidth = 600; // from CSS file ...make this adjustable in future?
+var canvasHeight = 400; // from CSS file ...make this adjustable in future?
 var timeoutId;
+
+// Game control globals
+var roaches = [];
+var thePlayers = [];
+var currentPlayerIndex = 0;
+var currentPlayer;
+
 
 //////////////// Constructors ////////////////
 
@@ -144,48 +148,33 @@ function renderGame() {
   currentPlayer.render();
 }
 
-///////// Initialize objects & call construtors //////////
+function doPlayerTurn() {
+  // Create the roaches with initial random positions & velcities
+  for (var i=0; i<numRoaches; i++) {
+    console.log('creating Roach ' + i);
+    // choose random position within 50px of center
+    var x = Math.floor(
+      Math.random() * (  ((canvasWidth/2 + startRadius)+1) - (canvasWidth/2 - startRadius)  )
+      + (canvasWidth/2 - startRadius - imgRoach.width/2)
+    );
+    var y = Math.floor(
+      Math.random() * (  ((canvasHeight/2 + startRadius)+1) - (canvasHeight/2 - startRadius)  )
+      + (canvasHeight/2 - startRadius - imgRoach.height/2)
+    );
 
-// Create player
-var currentPlayer = new player();
+    // choose random velocity from +/-maxRoachSpeed
+    var xVel = Math.floor(
+      Math.random() * ((maxRoachSpeed+1) - minRoachSpeed) + minRoachSpeed
+      - maxRoachSpeed/2
+    );
+    var yVel = Math.floor(
+      Math.random() * ((maxRoachSpeed+1) - minRoachSpeed) + minRoachSpeed
+      - maxRoachSpeed/2
+    );
+    roaches[i] = new roach(x, y, xVel, yVel);
+  }
 
-// Create the roaches with initial random positions & velcities
-for (var i=0; i<numRoaches; i++) {
-  console.log('creating Roach ' + i);
-  // choose random position within 50px of center
-  var x = Math.floor(
-    Math.random() * (  ((canvasWidth/2 + startRadius)+1) - (canvasWidth/2 - startRadius)  )
-    + (canvasWidth/2 - startRadius - imgRoach.width/2)
-  );
-  var y = Math.floor(
-    Math.random() * (  ((canvasHeight/2 + startRadius)+1) - (canvasHeight/2 - startRadius)  )
-    + (canvasHeight/2 - startRadius - imgRoach.height/2)
-  );
-
-  // choose random velocity from +/-maxRoachSpeed
-  var xVel = Math.floor(
-    Math.random() * ((maxRoachSpeed+1) - minRoachSpeed) + minRoachSpeed
-    - maxRoachSpeed/2
-  );
-  var yVel = Math.floor(
-    Math.random() * ((maxRoachSpeed+1) - minRoachSpeed) + minRoachSpeed
-    - maxRoachSpeed/2
-  );
-  roaches[i] = new roach(x, y, xVel, yVel);
-}
-
-////////////////////// window.onload //////////////////////////
-
-$('document').ready(function(){
-  console.log('window loaded');
-
-  canvas = document.getElementById('gameCanvas');
-  // canvas = document.getElementById('gameCanvas').style.cursor = "none";
-  ctx = canvas.getContext('2d');
-
-  /////// MAIN CONTROL CODE ///////////////////
-  /////////////////////////////////////////////
-
+//// *********** working in here ****************/////
   // listen for player events
   /* event handling doesn't work this way because 'this' in currentPlayer.killRoaches will refer to the canvas (the calling object) and the instance of my object 'currentPlayer'.
   canvas.addEventListener('click', currentPlayer.killRoaches);
@@ -214,5 +203,38 @@ $('document').ready(function(){
   // set game rendering in motion
   timeoutId = window.setInterval(renderGame, 50);
 
-  //
+
+  //// *********** working above here ****************/////
+
+
+}
+
+////////////////////////////////////////////////////////////
+////////////////// START DOING STUFF HERE! /////////////////
+
+///////// Initialize objects & call construtors //////////
+
+// Create players (aka da playaz)
+for (var i=0; i<numPlayers; i++) {
+  console.log('Creating player: ' + i);
+  thePlayers[i] = new player();
+}
+// set to player1's turn
+currentPlayer = thePlayers[0];
+
+////////////////////// window.onload //////////////////////////
+
+$('document').ready(function(){
+  console.log('window loaded');
+
+  canvas = document.getElementById('gameCanvas');
+  // canvas = document.getElementById('gameCanvas').style.cursor = "none";
+  ctx = canvas.getContext('2d');
+
+  /////// MAIN CONTROL CODE ///////////////////
+  /////////////////////////////////////////////
+
+  doPlayerTurn();
+
+
 }); // close $('document').ready()
