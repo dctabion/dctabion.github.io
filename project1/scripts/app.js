@@ -17,7 +17,7 @@ imgBackground.src = 'assets/splat.png';
 
 // programmer defined variables to adjust game parameters
 var numRoaches = 5;
-var maxRoachSpeed = 8;
+var maxRoachSpeed = 10;
 var minRoachSpeed = 1;
 var startRadius = 25;
 var numPlayers = 3;
@@ -251,6 +251,9 @@ function doPlayerTurn() {
       else if ( thePlayers[i].currentKills == winningScore ) {
         tie = true;
       }
+
+      // add to player's score for round to display string
+      theString = theString + thePlayers[i].name + ": " + thePlayers[i].currentKills + " kills.\n";
     }
 
     if (tie) {
@@ -259,18 +262,18 @@ function doPlayerTurn() {
           theString = theString + thePlayers[i].name + " "
         }
       }
-      theString = theString + " tied.";
+      theString = theString + " tied.\n\n";
     }
     else {
       // this unecessarily loops though all players.  maybe an better solution
       for (var i=0; i < thePlayers.length; i++) {
         if ( thePlayers[i].currentKills == winningScore) {
-          theString = theString + thePlayers[i].name + " wins!!!";
+          theString = theString + thePlayers[i].name + " wins!!!\n\n";
         }
       }
     }
+    theString = theString + 'GAME OVER DOODS! Call the exterminator next time!';
     alert(theString);
-    alert('Game over doods!');
   }
 } // close doPlayerTurn()
 
