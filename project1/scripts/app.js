@@ -126,8 +126,9 @@ var player = function() {
             console.log('All roaches dead!');
             alert('Player ' + (currentPlayerIndex + 1) + ' killed ' + currentPlayer.currentKills + ' roaches this round!');
             clearTimeout(timeoutId);
-            // stop listening to mouse ***
-            // stop listening to click ***
+            // *** is it valid to remove event handlers this way?
+            canvas.onclick = null;
+            canvas.onmousemove = null;
             currentPlayer.totalKills = currentPlayer.totalKills + currentPlayer.currentKills;
             currentPlayerIndex++;
             currentPlayer = thePlayers[currentPlayerIndex];
@@ -157,59 +158,67 @@ function renderGame() {
 }
 
 function doPlayerTurn() {
+  if (currentPlayerIndex < numPlayers) {
+    // Create the roaches with initial random positions & velcities
+    for (var i=0; i<numRoaches; i++) {
+      console.log('creating Roach ' + i);
+      // choose random position within 50px of center
+      var x = Math.floor(
+        Math.random() * (  ((canvasWidth/2 + startRadius)+1) - (canvasWidth/2 - startRadius)  )
+        + (canvasWidth/2 - startRadius - imgRoach.width/2)
+      );
+      var y = Math.floor(
+        Math.random() * (  ((canvasHeight/2 + startRadius)+1) - (canvasHeight/2 - startRadius)  )
+        + (canvasHeight/2 - startRadius - imgRoach.height/2)
+      );
 
-  // Create the roaches with initial random positions & velcities
-  for (var i=0; i<numRoaches; i++) {
-    console.log('creating Roach ' + i);
-    // choose random position within 50px of center
-    var x = Math.floor(
-      Math.random() * (  ((canvasWidth/2 + startRadius)+1) - (canvasWidth/2 - startRadius)  )
-      + (canvasWidth/2 - startRadius - imgRoach.width/2)
-    );
-    var y = Math.floor(
-      Math.random() * (  ((canvasHeight/2 + startRadius)+1) - (canvasHeight/2 - startRadius)  )
-      + (canvasHeight/2 - startRadius - imgRoach.height/2)
-    );
-
-    // choose random velocity from +/-maxRoachSpeed
-    var xVel = Math.floor(
-      Math.random() * ((maxRoachSpeed+1) - minRoachSpeed) + minRoachSpeed
-      - maxRoachSpeed/2
-    );
-    var yVel = Math.floor(
-      Math.random() * ((maxRoachSpeed+1) - minRoachSpeed) + minRoachSpeed
-      - maxRoachSpeed/2
-    );
-    roaches[i] = new roach(x, y, xVel, yVel);
-  }
-
-  // listen for player events  CHECK OUT THIS ISSUE!!!  'this' issue fixed!!!
-  /* event handling doesn't work this way because 'this' in currentPlayer.killRoaches will refer to the canvas (the calling object) and the instance of my object 'currentPlayer'.
-  canvas.addEventListener('click', currentPlayer.killRoaches);
-  canvas.addEventListener('mousemove', currentPlayer.mouseMove);
-  */
-  canvas.onclick = function(event) {
-    console.log('--click-- currentPlayer:' + currentPlayer.xPos + ', ' + currentPlayer.yPos);
-    currentPlayer.killRoaches(event);
-  }
-  canvas.onmousemove = function(event) {
-    console.log('--mouseMove-- currentPlayer:' + currentPlayer.xPos + ', ' + currentPlayer.yPos);
-    currentPlayer.mouseMove(event);
-  }
-
-  // listen for ESC to stop the program
-  $( "html" ).keydown(function( event ) {
-    // ESC - stop the roach!
-    if (event.keyCode == 27) {
-      clearInterval(timeoutId);
+      // choose random velocity from +/-maxRoachSpeed
+      var xVel = Math.floor(
+        Math.random() * ((maxRoachSpeed+1) - minRoachSpeed) + minRoachSpeed
+        - maxRoachSpeed/2
+      );
+      var yVel = Math.floor(
+        Math.random() * ((maxRoachSpeed+1) - minRoachSpeed) + minRoachSpeed
+        - maxRoachSpeed/2
+      );
+      roaches[i] = new roach(x, y, xVel, yVel);
     }
-    console.log('event.keyCode: ' + event.keyCode);
-  });
 
-  // set game rendering in motion
-  timeoutId = window.setInterval(renderGame, 50);
+    // listen for player events  CHECK OUT THIS ISSUE!!!  'this' issue fixed!!!
+    /* The following code doesn't work.  event handling doesn't work this way because 'this' in currentPlayer.killRoaches will refer to the canvas (the calling object) and the instance of my object 'currentPlayer'.
+    canvas.addEventListener('click', currentPlayer.killRoaches);
+    canvas.addEventListener('mousemove', currentPlayer.mouseMove);
+    */
 
+    // values of handler functions before setting them (initial value)
+    console.log("canvas.onlick: " + canvas.onclick);
+    console.log("canvas.onmousemove: " + canvas.onmousemove);
+    canvas.onclick = function(event) {
+      console.log('--click-- currentPlayer:' + currentPlayer.xPos + ', ' + currentPlayer.yPos);
+      currentPlayer.killRoaches(event);
+    }
+    canvas.onmousemove = function(event) {
+      console.log('--mouseMove-- currentPlayer:' + currentPlayer.xPos + ', ' + currentPlayer.yPos);
+      currentPlayer.mouseMove(event);
+    }
 
+    // listen for ESC to stop the program
+    $( "html" ).keydown(function( event ) {
+      // ESC - stop the roach!
+      if (event.keyCode == 27) {
+        clearInterval(timeoutId);
+      }
+      console.log('event.keyCode: ' + event.keyCode);
+    });
+
+    // set game rendering in motion
+    timeoutId = window.setInterval(renderGame, 50);
+  } // close condition (still have players to go through)
+
+  else {
+    // check who won and display here
+    alert('Game over doods!');
+  }
 } // close doPlayerTurn()
 
 
