@@ -124,9 +124,14 @@ var player = function() {
           // stop rendering if all roaches dead
           if (roaches.length == 0 ) {
             console.log('All roaches dead!');
-
             alert('Player ' + (currentPlayerIndex + 1) + ' killed ' + currentPlayer.currentKills + ' roaches this round!');
             clearTimeout(timeoutId);
+            // stop listening to mouse ***
+            // stop listening to click ***
+            currentPlayer.totalKills = currentPlayer.totalKills + currentPlayer.currentKills;
+            currentPlayerIndex++;
+            currentPlayer = thePlayers[currentPlayerIndex];
+            doPlayerTurn();
           }
         } // close met kill conditions
       } // close for loop to check all roaches
@@ -152,6 +157,7 @@ function renderGame() {
 }
 
 function doPlayerTurn() {
+
   // Create the roaches with initial random positions & velcities
   for (var i=0; i<numRoaches; i++) {
     console.log('creating Roach ' + i);
@@ -177,7 +183,7 @@ function doPlayerTurn() {
     roaches[i] = new roach(x, y, xVel, yVel);
   }
 
-  // listen for player events
+  // listen for player events  CHECK OUT THIS ISSUE!!!  'this' issue fixed!!!
   /* event handling doesn't work this way because 'this' in currentPlayer.killRoaches will refer to the canvas (the calling object) and the instance of my object 'currentPlayer'.
   canvas.addEventListener('click', currentPlayer.killRoaches);
   canvas.addEventListener('mousemove', currentPlayer.mouseMove);

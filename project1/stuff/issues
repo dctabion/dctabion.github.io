@@ -43,6 +43,7 @@ KICK OF DIFFERENT TASKS
                       call the prep stuff function()
                         -display score of player
                         -increase player index so next players' turn
+                        -set currentPlayer to be players[currentPlayerIndex]
                       call the do player function to kick off again
 
    -start rendering periodically
