@@ -20,7 +20,7 @@ var numRoaches = 5;
 var maxRoachSpeed = 5;
 var minRoachSpeed = 1;
 var startRadius = 25;
-var numPlayers = 2;
+var numPlayers = 3;
 
 // UI related globals
 var canvas;
@@ -124,7 +124,7 @@ var player = function(index) {
           // stop rendering if all roaches dead
           if (roaches.length == 0 ) {
             console.log('All roaches dead!');
-            alert('Player ' + (currentPlayerIndex + 1) + ' killed ' + currentPlayer.currentKills + ' roaches this round!');
+            alert(thePlayers[currentPlayerIndex].name + ' killed ' + currentPlayer.currentKills + ' roaches this round!');
             clearTimeout(timeoutId);
             // *** is it valid to remove event handlers this way?
             canvas.onclick = null;
