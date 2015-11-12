@@ -68,7 +68,7 @@ var roach = function (xPos, yPos, xVel, yVel) {
 
 // Make new player
 var player = function(index) {
-  this.name = "Dood" + index; // for now players will be called "Dood 1", "Dood 2", etc
+  this.name = "Dood" + (index + 1); // for now players will be called "Dood 1", "Dood 2", etc
   this.currentKills = 0;
   this.totalKills = 0; // current kills on this level
   this.levelsWon = 0;
@@ -160,6 +160,12 @@ function renderGame() {
 function doPlayerTurn() {
   if (currentPlayerIndex < numPlayers) {
     // Create the roaches with initial random positions & velcities
+
+    // *** TEST CODE BELOW REMOVE THIS TEST CODE *** //
+    //numRoaches = parseInt( Math.random() * 6 + 1 );
+    //numRoaches = numRoaches + 2;
+    // *** TEST CODE ABOVE REMOVE THIS TEST CODE *** //
+
     for (var i=0; i<numRoaches; i++) {
       console.log('creating Roach ' + i);
       // choose random position within 50px of center
