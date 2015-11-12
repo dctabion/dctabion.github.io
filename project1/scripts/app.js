@@ -69,7 +69,8 @@ var roach = function (xPos, yPos, xVel, yVel) {
 // Make new player
 var player = function() {
   this.name = "Dood";
-  this.kills = 0;
+  this.currentKills = 0;
+  this.totalKills = 0; // current kills on this level
   this.levelsWon = 0;
   this.xPos;
   this.yPos;
@@ -112,7 +113,7 @@ var player = function() {
             (yKill < (roaches[i].yPos + imgHand.height))
                                                               ) {
           // Killed a roach! Increase score
-          this.kills = this.kills + 1;
+          this.currentKills= this.currentKills + 1;
 
           // clear roach from canvass draw splat and remove roach from array
           console.log('KILLED A ROACH!  There were ' + roaches.length + ' roaches.');
@@ -123,6 +124,8 @@ var player = function() {
           // stop rendering if all roaches dead
           if (roaches.length == 0 ) {
             console.log('All roaches dead!');
+
+            alert('Player ' + (currentPlayerIndex + 1) + ' killed ' + currentPlayer.currentKills + ' roaches this round!');
             clearTimeout(timeoutId);
           }
         } // close met kill conditions
@@ -174,13 +177,11 @@ function doPlayerTurn() {
     roaches[i] = new roach(x, y, xVel, yVel);
   }
 
-//// *********** working in here ****************/////
   // listen for player events
   /* event handling doesn't work this way because 'this' in currentPlayer.killRoaches will refer to the canvas (the calling object) and the instance of my object 'currentPlayer'.
   canvas.addEventListener('click', currentPlayer.killRoaches);
   canvas.addEventListener('mousemove', currentPlayer.mouseMove);
   */
-
   canvas.onclick = function(event) {
     console.log('--click-- currentPlayer:' + currentPlayer.xPos + ', ' + currentPlayer.yPos);
     currentPlayer.killRoaches(event);
@@ -189,7 +190,6 @@ function doPlayerTurn() {
     console.log('--mouseMove-- currentPlayer:' + currentPlayer.xPos + ', ' + currentPlayer.yPos);
     currentPlayer.mouseMove(event);
   }
-
 
   // listen for ESC to stop the program
   $( "html" ).keydown(function( event ) {
@@ -204,15 +204,13 @@ function doPlayerTurn() {
   timeoutId = window.setInterval(renderGame, 50);
 
 
-  //// *********** working above here ****************/////
+} // close doPlayerTurn()
 
-
-}
 
 ////////////////////////////////////////////////////////////
 ////////////////// START DOING STUFF HERE! /////////////////
 
-///////// Initialize objects & call construtors //////////
+///////// Initialize global objects /call construtors //////////
 
 // Create players (aka da playaz)
 for (var i=0; i<numPlayers; i++) {

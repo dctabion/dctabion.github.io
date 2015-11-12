@@ -34,10 +34,13 @@ KICK OF DIFFERENT TASKS
                  -increase kills
                  -if no roaches left / level over
                     <LEVEL OVER CODE!> call level over ***
-                      call the clear stuff and prep for new person function
+                      display number of kills for all players
+                      inc totalKills for player;
+                      call the clear stuff function()
                         -clear render timer
                         -stop listening to mousMove
                         -stop listening to click
+                      call the prep stuff function()
                         -display score of player
                         -increase player index so next players' turn
                       call the do player function to kick off again
