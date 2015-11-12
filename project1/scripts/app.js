@@ -26,6 +26,7 @@ var maxRoachSpeed = 5;
 var minRoachSpeed = 1;
 var startRadius = 25;
 
+
 var timeoutId;
 
 //////////////// Constructors ////////////////
@@ -60,8 +61,9 @@ function roach(xPos, yPos, xVel, yVel) {
 
 // Make new player
 function player() {
-  this.kills = 0;
   this.name = "Dood";
+  this.kills = 0;
+  this.levelsWon = 0;
   this.xPos;
   this.yPos;
   this.xPosOld;
@@ -93,14 +95,31 @@ function player() {
     console.log('trying to kill roaches');
     console.log(event.pageX + ", " + event.pageY + "  " +
       xKill + ', ' + yKill);
-    ctx.drawImage(imgSplat, xKill, yKill );
+    // ctx.drawImage(imgSplat, xKill, yKill);
 
     // check for kills on each roach
     for (i=0; i<roaches.length; i++) {
-    }
+      if (
+            (xKill > (roaches[i].xPos - imgHand.width)) &&
+            (xKill < (roaches[i].xPos + imgRoach.width)) &&
+            (yKill > (roaches[i].yPos - imgHand.height)) &&
+            (yKill < (roaches[i].yPos + imgHand.height))
+                                                              ) {
+          // Killed a roach! Increase score
+          this.kills = this.kills + 1;
+
+          // clear roach from canvass and remove roach from array
+          console.log('KILLED A ROACH!  There were ' + roaches.length + ' roaches.');
+          roaches[i].clear();
+          roaches.splice(i);
+          console.log('Now there are ' + roaches.length + ' roaches.');
+
+          // Draw Splat
+          ctx.drawImage(imgSplat, xKill, yKill);
+        }
+      }
   };
 }
-
 ////////////////  Helper Functions /////////////////
 
 // move and draw all the roaches
