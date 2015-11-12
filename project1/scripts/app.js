@@ -35,7 +35,7 @@ var timeoutId;
 //////////////// Constructors ////////////////
 
 // Make new roach
-function roach(xPos, yPos, xVel, yVel) {
+var roach = function (xPos, yPos, xVel, yVel) {
   this.xPos = xPos;
   this.yPos = yPos;
   this.xPosOld = xPos;
@@ -63,7 +63,7 @@ function roach(xPos, yPos, xVel, yVel) {
 }
 
 // Make new player
-function player() {
+var player = function() {
   this.name = "Dood";
   this.kills = 0;
   this.levelsWon = 0;
@@ -116,10 +116,16 @@ function player() {
           ctx.drawImage(imgSplat, roaches[i].xPos, roaches[i].yPos);
           roaches.splice(i, 1);
           console.log('Now there are ' + roaches.length + ' roaches.');
-        }
-      }
-  };
-}
+          // stop rendering if all roaches dead
+          if (roaches.length == 0 ) {
+            console.log('All roaches dead!');
+            clearTimeout(timeoutId);
+          }
+        } // close met kill conditions
+      } // close for loop to check all roaches
+  }; // close this.killRoaches()
+} // close player() constructor
+
 ////////////////  Helper Functions /////////////////
 
 // move and draw all the roaches
@@ -207,6 +213,6 @@ $('document').ready(function(){
 
   // set game rendering in motion
   timeoutId = window.setInterval(renderGame, 50);
-  // renderGame();
 
+  //
 }); // close $('document').ready()
