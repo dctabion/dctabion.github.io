@@ -24,22 +24,25 @@ http://dctabion.github.io/project1 (sound does't work here)
 
 
 ##UNSOLVED ISSUES
--Some roaches don't move
--Make .png files transparent to improve rendering and remove the "rectangles" around images.
--Occasionally there is an error at the end of a player's round.  This doesn't cause
--Score summary at end of game has poor formatting.
--sound doesn't work on version at github server
--sound doesn't play
+*Need a delay at the beginning of a player's turn so they can get ready to kill roaches
+*sound doesn't work on version at github server
+*sound doesn't play all the time
+*Some roaches don't move
+*Score summary at end of game has poor formatting.
+*Make .png files transparent to improve rendering and remove the "rectangles" around images.
+*Occasionally there is an error at the end of a player's round.  This doesn't cause
+
 
 A more complete log of unsolved issues is contained in the github repository in the file "stuff/issues&featureTracking".
 
 
 ##FUTURE FEATURES
 Some of the main features which might be added include:
--give roaches "intelligence" to allow them to respond to proximity of mouse position
--Within one player's round, allow a new wave(s) of roaches to be generated.
--show indication of impending new wave of roaches
--allow player to plant up to x number of roach bombs which are more effective than simple mouse clicking
--more sounds for various aspects of the game
+*improve layout
+*give roaches "intelligence" to allow them to respond to proximity of mouse position
+*Within one player's round, allow a new wave(s) of roaches to be generated.
+*show indication of impending new wave of roaches
+*allow player to plant up to x number of roach bombs which are more effective than simple mouse clicking
+*more sounds for various aspects of the game
 
 A more complete list of future features is contained in the github repository in the file "stuff/issues&featureTracking".
