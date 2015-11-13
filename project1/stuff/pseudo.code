@@ -1,6 +1,8 @@
 ***
-font-family: 'Anton', sans-serif;
-font-family: 'Archivo Narrow', sans-serif;
+<link href='https://fonts.googleapis.com/css?family=Sigmar+One|Merriweather+Sans' rel='stylesheet' type='text/css'>
+font-family: 'Sigmar One', cursive;
+font-family: 'Merriweather Sans', sans-serif;
+
 
 *** PSEUDO CODE ***
 
