@@ -209,6 +209,9 @@ function doPlayerTurn() {
     //numRoaches = numRoaches + 2;
     // *** TEST CODE ABOVE REMOVE THIS TEST CODE *** //
 
+    // ask user to click
+    $('#gameStatusMsg').append(currentPlayer.name + ', click on roaches to squash them!');
+
     // clear splats
     theSplats = [];
 
@@ -346,6 +349,9 @@ $('document').ready(function(){
   // canvas = document.getElementById('gameCanvas').style.cursor = "none";
   ctx = canvas.getContext('2d');
 
+  // Selectors
+  var gameStatusMsg = $('#statusMsg');
+  console.log(gameStatusMsg);
   /////// MAIN CONTROL CODE ///////////////////
   /////////////////////////////////////////////
 

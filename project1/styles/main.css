@@ -1,3 +1,12 @@
+#title {
+  width: 100%;
+  height: 100px;
+  font-family: 'Sigmar One', cursive;
+  font-size: 2em;
+  text-align: center;
+  background-color: brown;
+}
+
 #gameCanvas {
   width: 600px;
   height: 400px;
@@ -6,13 +15,13 @@
   margin: auto;
 }
 
-#fallbackImg {
-  width: 500px;
-  height: 480px;
-}
-
-div {
+#canvasDiv {
   width: 600px;
   height: 400px;
   margin: auto;
+}
+
+#fallbackImg {
+  width: 500px;
+  height: 480px;
 }

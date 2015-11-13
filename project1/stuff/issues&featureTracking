@@ -21,8 +21,7 @@ OPEN ISSUES FOR MVP:
 
 OPEN ISSUES EXTRAS: LOW PRIORITY:
 bugs
--uncaught blah render...happens at end of player's turn SOMETIMES
-
+-SOMETIMES GET THIS ERROR: Uncaught TypeError: Cannot read property 'render' of undefined
 
 -fix random start and velocities.
    sometimes velocity is 0
