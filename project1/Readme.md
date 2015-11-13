@@ -1,15 +1,15 @@
 #ROACH RAGE
-###A web-based game
+A web-based game by Double-Haul Productions
 
 ##TECHNOLOGIES USED
 HTML, CSS, javascript, jquery
 
 ##APPROACH TAKEN
 
-#Rendering The Animation Frames
+###Rendering The Animation Frames
 The web app uses the HTML5 canvas feature to render the game.  Objects are created with coordinates for each item to be drawn.  They are drawn in "layers" so certain objects are always seen "on top".  The layers are drawn in the following order: smashed roaches, live roaches, mouse (player) icon/cursor.  This is set to render on a repeating interval.
 
-#Game Logic
+###Game Logic
 The core design is in this github repository in the file "/stuff/pseudo.code"
 
 The game is initialized by creating an array of player objects.
