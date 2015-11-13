@@ -25,3 +25,7 @@
   width: 500px;
   height: 480px;
 }
+
+#gameStatusMsg {
+  text-align: center;
+}
