@@ -18,8 +18,9 @@ The game loops through each player object to allow the player to play one round.
 
 ##INSTALLATION INSTRUCTIONS
 Install files on a webserver or install files directly on a computer with a browser.
-The game is installed and playable from this link:
-dctabion.github.io/project1
+The game is installed and playable from these links:
+http://gambler-polarity-27158.bitballoon.com/
+http://dctabion.github.io/project1 (sound does't work here)
 
 
 ##UNSOLVED ISSUES
