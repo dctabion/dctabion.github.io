@@ -23,6 +23,7 @@ dctabion.github.io/project1
 
 
 ##UNSOLVED ISSUES
+-Some roaches don't move
 -Make .png files transparent to improve rendering and remove the "rectangles" around images.
 -Occasionally there is an error at the end of a player's round.  This doesn't cause
 -Score summary at end of game has poor formatting.
@@ -34,6 +35,7 @@ A more complete log of unsolved issues is contained in the github repository in 
 
 ##FUTURE FEATURES
 Some of the main features which might be added include:
+-give roaches "intelligence" to allow them to respond to proximity of mouse position
 -Within one player's round, allow a new wave(s) of roaches to be generated.
 -show indication of impending new wave of roaches
 -allow player to plant up to x number of roach bombs which are more effective than simple mouse clicking
