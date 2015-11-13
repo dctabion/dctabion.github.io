@@ -13,6 +13,8 @@ imgHand.src = 'assets/hand.png';
 var imgBackground = new Image();
 imgBackground.src = 'assets/splat.png';
 
+var audioKill = new Audio('assets/kill.mp3');
+
 /////////////// Global Variables /////////////
 
 // programmer defined variables to adjust game parameters
@@ -141,6 +143,8 @@ var player = function(index) {
                                                               ) {
           // Killed a roach! Increase score
           this.currentKills= this.currentKills + 1;
+          // audioKill.stop();
+          audioKill.play();
 
           // clear roach from canvass draw splat and remove roach from array
           console.log('KILLED A ROACH!  There were ' + roaches.length + ' roaches.');
