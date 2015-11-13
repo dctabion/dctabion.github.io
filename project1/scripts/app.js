@@ -209,30 +209,13 @@ function doPlayerTurn() {
     //numRoaches = numRoaches + 2;
     // *** TEST CODE ABOVE REMOVE THIS TEST CODE *** //
 
-    $('#easing_example_2').click(function(event) {
-            $(this)
-                .animate(
-                    { left: 200 }, {
-                        duration: 'slow',
-                        easing: 'easeOutElastic'
-                    })
-                .animate(
-                    { left: 0 }, {
-                        duration: 'slow',
-                        easing: 'easeOutElastic'
-                    });
-        });
-
     $('#gameStatusMsg').empty();
-    $('.rectangle')
-       .find('.square-small')
-       .animate({
-          left: 280
-        }, 'slow')
-
-
-
+    $('#gameStatusMsg').hide();
     $('#gameStatusMsg').append(currentPlayer.name + ', click on roaches to squash them!');
+    $('#gameStatusMsg').fadeIn( "slow" );
+
+
+
 
 
 

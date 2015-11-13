@@ -26,6 +26,14 @@
   height: 480px;
 }
 
+#gameStatusBar{
+  background-color: tan;
+  width: 100%;
+  height:21px;
+  margin:0;
+}
+
 #gameStatusMsg {
+  margin: 0;
   text-align: center;
 }
