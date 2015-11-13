@@ -210,15 +210,9 @@ function doPlayerTurn() {
     // *** TEST CODE ABOVE REMOVE THIS TEST CODE *** //
 
     $('#gameStatusMsg').empty();
-    $('#gameStatusMsg').hide();
+    $('#gameStatusMsg').show();
     $('#gameStatusMsg').append(currentPlayer.name + ', click on roaches to squash them!');
-    $('#gameStatusMsg').fadeIn( "slow" );
-
-
-
-
-
-
+    $('#gameStatusMsg').fadeOut(3000);
 
     // clear splats
     theSplats = [];
@@ -282,8 +276,8 @@ function doPlayerTurn() {
     // check who won and display here
     var winningScore = -1;
     var tie = false;
-    var theString = "";
-
+    var scoreString = "";
+    var winString = "";
     // check for Winning score or tie
     for (var i=0; i < thePlayers.length; i++) {
       if ( thePlayers[i].currentKills > winningScore ) {
@@ -295,33 +289,53 @@ function doPlayerTurn() {
       }
 
       // add to player's score for round to display string
-      theString = theString + thePlayers[i].name + ": " + thePlayers[i].currentKills + " kills.\n";
+      scoreString = scoreString + thePlayers[i].name + ": " + thePlayers[i].currentKills + " kills.\n";
     }
 
     if (tie) {
       for (var i=0; i < thePlayers.length; i++) {
         if ( thePlayers[i].currentKills == winningScore ) {
-          theString = theString + thePlayers[i].name + " "
+          scoreString = scoreString + thePlayers[i].name + " "
         }
       }
-      theString = theString + " tied.\n\n";
+      scoreString = scoreString + " tied.\n\n";
     }
     else {
       // this unecessarily loops though all players.  maybe an better solution
       for (var i=0; i < thePlayers.length; i++) {
         if ( thePlayers[i].currentKills == winningScore) {
-          theString = theString + thePlayers[i].name + " wins!!!\n\n";
+          winString = winString + thePlayers[i].name + " wins!!!\n\n";
         }
       }
     }
-    theString = theString + 'GAME OVER DOODS! Call the exterminator next time!';
-    alert(theString);
+    scoreString = scoreString + 'GAME OVER DOODS! Call the exterminator next time!';
+window.setTimeout(function(){
+  $('#gameStatusMsg').empty();
+  $('#gameStatusMsg').show();
+  $('#gameStatusMsg').append(winString);
+  for (var i=0; i<10; i++) {
+    $('#gameStatusMsg').fadeOut(300);
+    $('#gameStatusMsg').fadeIn(300);
+  }
+
+  $('#gameStatusMsg').empty();
+  $('#gameStatusMsg').show();
+  $('#gameStatusMsg').append(scoreString);
+}, 2500);
+
+
+
+    // alert(theString);
   }
 } // close doPlayerTurn()
 
 function endTurn() {
   console.log('All roaches dead or escaped!');
-  alert(thePlayers[currentPlayerIndex].name + ' killed ' + currentPlayer.currentKills + ' roaches this round!');
+  $('#gameStatusMsg').empty();
+  $('#gameStatusMsg').show();
+  $('#gameStatusMsg').append(thePlayers[currentPlayerIndex].name + ' killed ' + currentPlayer.currentKills + ' roaches this round!');
+  $('#gameStatusMsg').fadeOut(2200);
+  // alert(thePlayers[currentPlayerIndex].name + ' killed ' + currentPlayer.currentKills + ' roaches this round!');
   clearTimeout(timeoutId);
   // clear canvas
   ctx.clearRect(0, 0, canvasWidth, canvasHeight);
