@@ -309,23 +309,24 @@ function doPlayerTurn() {
       }
     }
     scoreString = scoreString + 'GAME OVER DOODS! Call the exterminator next time!';
-window.setTimeout(function(){
-  $('#gameStatusMsg').empty();
-  $('#gameStatusMsg').show();
-  $('#gameStatusMsg').append(winString);
-  for (var i=0; i<10; i++) {
-    $('#gameStatusMsg').fadeOut(300);
-    $('#gameStatusMsg').fadeIn(300);
-  }
 
-  $('#gameStatusMsg').empty();
-  $('#gameStatusMsg').show();
-  $('#gameStatusMsg').append(scoreString);
-}, 2500);
+    // * display winner but wait for last player score to stop displaying
+    window.setTimeout(function(){
+      $('#gameStatusMsg').empty();
+      $('#gameStatusMsg').show();
+      $('#gameStatusMsg').append(winString);
+      for (var i=0; i<10; i++) {
+        $('#gameStatusMsg').fadeOut(300);
+        $('#gameStatusMsg').fadeIn(300);
+      }
+    }, 2200);
 
+    window.setTimeout(function(){
+      $('#gameStatusMsg').empty();
+      $('#gameStatusMsg').show();
+      $('#gameStatusMsg').append(scoreString);
+    }, 2200+600*10+500);
 
-
-    // alert(theString);
   }
 } // close doPlayerTurn()
 
